@@ -25,7 +25,8 @@ public class MainController extends Application{
     private final double pi = 3.14159265358;
     GraphicsContext gc;
     Sprite platform;
-    Sprite ball;
+    Sprite ball1 = new Sprite();
+    Sprite ball2 = new Sprite();
     Sprite leftWall;
     Sprite topWall;
     Sprite rightWall;
@@ -49,7 +50,8 @@ public class MainController extends Application{
         random = new Random();
 
         initializePlatform();
-        initializeBall();
+        initializeBall(ball1);
+        initializeBall(ball2);
 
         scene.setOnMouseDragged(
                 new EventHandler<MouseEvent>() {
@@ -67,9 +69,12 @@ public class MainController extends Application{
             public void handle(long currentNanoTime) {
                 gc.clearRect(0,0,screenWidth,screenHeight);
                 platform.render(gc);
-                ball.update();
-                if(ball.getPositionY()<0) ball.setSpeed(0);
-                ball.render(gc);
+
+                makeReflection(ball1);
+                makeReflection(ball2);
+
+                updateSpriteOnTheScreen(ball1);
+                updateSpriteOnTheScreen(ball2);
 
             }
         }.start();
@@ -84,13 +89,12 @@ public class MainController extends Application{
         platform.render(gc);
     }
 
-    public void initializeBall(){
-        ball = new Sprite();
-        ball.setImage(new Image("ball.png"));
-        ball.setAlignment(screenWidth/2-10,screenHeight/2-10,20,20);
-        ball.setSpeed(random.nextInt(5));
-        ball.setAngle(random.nextDouble()*(-pi));
-        ball.render(gc);
+    public void initializeBall(Sprite s){
+        s.setImage(new Image("ball.png"));
+        s.setAlignment(screenWidth/2-10,screenHeight/2-10,20,20);
+        s.setSpeed(random.nextInt(7)+1);
+        s.setAngle(random.nextDouble()*(-pi));
+        s.render(gc);
     }
 
     public void initializeWalls(){
@@ -99,6 +103,38 @@ public class MainController extends Application{
         rightWall.setAlignment(screenWidth,0,screenHeight,1);
         bottomWall.setAlignment(0,screenHeight,1,screenWidth);
         //don't need to render. Walls are invisible
+    }
+
+    public void makeReflection(Sprite s){
+        //wall reflection logic
+
+        //top wall
+        if(s.getPositionY() < 0 && s.getPositionX() > 0 && s.getPositionX() < screenWidth){
+            s.setAngle(-s.getAngle());
+        }
+        //left wall
+        if(s.getPositionX() < 0 && s.getPositionY() > 0 && s.getPositionY() < screenHeight){
+            if(s.getAngle() > 0) s.setAngle(pi - s.getAngle()); //going down
+            if(s.getAngle() < 0) s.setAngle(-pi - s.getAngle()); //going up
+        }
+        //right wall
+        if(s.getPositionX() > screenWidth - 20 && s.getPositionY() > 0 && s.getPositionY() < screenHeight){
+            if(s.getAngle() > 0) s.setAngle(pi - s.getAngle()); //going down
+            if(s.getAngle() < 0) s.setAngle(-pi - s.getAngle()); //going up
+        }
+
+        //bottom wall
+
+        //platform
+        if(s.intersects(platform)){
+            s.setAngle(-s.getAngle());
+        }
+
+    }
+
+    public void updateSpriteOnTheScreen(Sprite s){
+        s.update();
+        s.render(gc);
     }
 
 }
