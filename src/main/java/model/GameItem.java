@@ -5,19 +5,16 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 /**
- * Created by Виктор on 11.10.2016.
+ * Created by Viktor_Artemov on 10/14/2016.
  */
-public class Sprite
-{
+public abstract class GameItem {
     private Image image;
     private double positionX;
     private double positionY;
-    private double velocityX;
-    private double velocityY;
-    private double angle;
-    private int speed;
     private double width;
     private double height;
+
+
 
     public Image getImage() {
         return image;
@@ -43,22 +40,6 @@ public class Sprite
         this.positionY = positionY;
     }
 
-    public double getVelocityX() {
-        return velocityX;
-    }
-
-    public void setVelocityX(double velocityX) {
-        this.velocityX = velocityX;
-    }
-
-    public double getVelocityY() {
-        return velocityY;
-    }
-
-    public void setVelocityY(double velocityY) {
-        this.velocityY = velocityY;
-    }
-
     public double getWidth() {
         return width;
     }
@@ -75,30 +56,6 @@ public class Sprite
         this.height = height;
     }
 
-    public double getAngle() {
-        return angle;
-    }
-
-    public void setAngle(double angle) {
-        this.angle = angle;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public void update(/*double time*/)
-    {
-        //positionX += velocityX * time;
-        //positionY += velocityY * time;
-        positionX = positionX + speed * Math.cos(angle);
-        positionY = positionY + speed * Math.sin(angle);
-    }
-
     public void render(GraphicsContext gc)
     {
         gc.drawImage( image, positionX, positionY, width, height);
@@ -109,7 +66,7 @@ public class Sprite
         return new Rectangle2D(positionX,positionY,width,height);
     }
 
-    public boolean intersects(Sprite s)
+    public boolean intersects(GameItem s)
     {
         return s.getBoundary().intersects( this.getBoundary() );
     }

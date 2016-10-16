@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane id="mainScreen" fx:id="mainWindow" dividerPositions="0.85" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="700.0" prefWidth="800.0" scaleShape="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+    <items>
+        <AnchorPane fx:id="gamePart" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+        <AnchorPane fx:id="bottomPart" maxHeight="110.0" minHeight="110.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <children>
+                <HBox layoutX="41.0" layoutY="-6.0" prefHeight="100.0" prefWidth="250.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Button fx:id="startButton" mnemonicParsing="false" onMouseClicked="#handleStartButtonClick" prefHeight="45.0" prefWidth="120.0" text="Start">
+                            <HBox.margin>
+                                <Insets right="30.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="pauseButton" mnemonicParsing="false" onMouseClicked="#handlePauseButtonClick" prefHeight="45.0" prefWidth="120.0" text="Pause" />
+                        <Label prefHeight="45.0" prefWidth="130.0" text="Ball's count:">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="30.0" />
+                            </HBox.margin>
+                        </Label>
+                        <TextField fx:id="ballsCountField" alignment="CENTER" onInputMethodTextChanged="#handleBallsCountFieldChange" prefHeight="30.0" prefWidth="72.0" promptText="0">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="5.0" />
+                            </HBox.margin>
+                        </TextField>
+                        <Label fx:id="scoreField" prefHeight="45.0" text="Score: 0">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets left="80.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets left="20.0" top="27.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </AnchorPane>
+    </items>
+</SplitPane>
